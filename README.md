@@ -4,9 +4,9 @@
 **Task 01 — POS Order & Inventory System**
 _Concurrency-Safe Order & Inventory Management System_
 
-> **Live Frontend:** `<add your Vercel URL>`
-> **Live Backend API:** `<add your Render URL>/api`
-> **GitHub Repository:** `<add your repo URL>`
+> **Live Frontend:** `<https://stockflow-pos-drab.vercel.app>`
+> **Live Backend API:** `<https://stockflow-pos-api.onrender.com/api>`
+> **GitHub Repository:** `<https://github.com/AffiDexz/stockflow-pos>`
 
 ---
 
