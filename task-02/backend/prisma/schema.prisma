@@ -1,0 +1,137 @@
+// ShopFlow - Prisma schema
+// Database: MySQL 8+ (InnoDB required for row-level locking / SELECT ... FOR UPDATE)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String    @unique
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String?  @db.Text
+  price          Decimal  @db.Decimal(10, 2)
+  availableStock Int      @default(0)
+  reservedStock  Int      @default(0)
+  imageUrl       String?
+  categoryId     Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  category     Category      @relation(fields: [categoryId], references: [id])
+  orderItems   OrderItem[]
+  reservations Reservation[]
+
+  @@index([categoryId])
+  @@map("products")
+}
+
+enum OrderStatus {
+  PENDING
+  RESERVED
+  PAID
+  FAILED
+  CANCELLED
+  EXPIRED
+  REFUNDED
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  reference   String      @unique
+  customer    String      @default("Guest")
+  status      OrderStatus @default(RESERVED)
+  totalAmount Decimal     @db.Decimal(10, 2)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  items        OrderItem[]
+  reservations Reservation[]
+  payments     Payment[]
+  refunds      Refund[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  name      String
+  unitPrice Decimal @db.Decimal(10, 2)
+  quantity  Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+enum ReservationStatus {
+  ACTIVE
+  CONFIRMED
+  RELEASED
+  EXPIRED
+}
+
+model Reservation {
+  id        Int               @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  status    ReservationStatus @default(ACTIVE)
+  expiresAt DateTime
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([status, expiresAt])
+  @@map("reservations")
+}
+
+enum PaymentStatus {
+  SUCCESS
+  FAILED
+  TIMEOUT
+}
+
+model Payment {
+  id             Int           @id @default(autoincrement())
+  orderId        Int
+  idempotencyKey String        @unique
+  amount         Decimal       @db.Decimal(10, 2)
+  status         PaymentStatus
+  createdAt      DateTime      @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+// Mock refund record — created when a PAID order is cancelled.
+model Refund {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  amount    Decimal  @db.Decimal(10, 2)
+  status    String   @default("Simulated Refund Successful")
+  createdAt DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("refunds")
+}
