@@ -4,9 +4,9 @@
 **Task 01 — POS Order & Inventory System**
 _Concurrency-Safe Order & Inventory Management System_
 
-> **Live Frontend:** `<https://stockflow-pos-drab.vercel.app>`
-> **Live Backend API:** `<https://stockflow-pos-api.onrender.com/api>`
-> **GitHub Repository:** `<https://github.com/AffiDexz/stockflow-pos>`
+> **Live Frontend:** https://stockflow-pos-drab.vercel.app
+> **Live Backend API:** https://stockflow-pos-api.onrender.com/api
+> **GitHub Repository:** https://github.com/AffiDexz/techloom-assessment
 
 ---
 
