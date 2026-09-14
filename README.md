@@ -51,10 +51,8 @@ with search & filters → product details → cart → checkout with stock reser
 
 ## 📂 Repository Structure
 
-techloom-assessment/
-├── task-01/ # StockFlow POS — POS order & inventory system
-└── task-02/ # ShopFlow — e-commerce checkout & payment system
-
+- **`/task-01`** — StockFlow POS (POS order & inventory system)
+- **`/task-02`** — ShopFlow (e-commerce checkout & payment system)
 
 Each task folder has its own **README** with full setup, API reference,
 testing steps, and deployment notes.
