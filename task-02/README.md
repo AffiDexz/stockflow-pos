@@ -3,9 +3,9 @@
 **Techloom.ai Software Engineer Intern Practical Assessment**
 **Task 02 — E-Commerce Checkout & Payment System**
 
-> **Live Frontend:** `<add your Vercel URL>`
-> **Live Backend API:** `<add your Render URL>/api`
-> **GitHub Repository:** `<add your repo URL>`
+> **Live Frontend:** `<https://shopflow-topaz-eight.vercel.app>`
+> **Live Backend API:** `<https://shopflow-api-9jix.onrender.com/api>`
+> **GitHub Repository:** `<https://github.com/AffiDexz/techloom-assessment>`
 
 ---
 
