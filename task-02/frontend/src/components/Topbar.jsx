@@ -15,7 +15,6 @@ export default function Topbar() {
     return () => clearInterval(t);
   }, []);
 
-  // Close the profile dropdown when clicking outside it.
   useEffect(() => {
     function onClick(e) {
       if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
@@ -32,7 +31,7 @@ export default function Topbar() {
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search products, orders..."
+            placeholder="Search products..."
             onKeyDown={(e) => {
               if (e.key === 'Enter') navigate(`/?search=${encodeURIComponent(e.target.value)}`);
             }}
@@ -41,7 +40,7 @@ export default function Topbar() {
         </div>
       </div>
 
-      {/* Right-corner cluster: cart + profile */}
+      {/* Right-corner cluster: cart + account */}
       <div className="flex items-center gap-1 ml-auto shrink-0">
         {/* Cart */}
         <button
@@ -61,18 +60,18 @@ export default function Topbar() {
         {/* Divider */}
         <div className="w-px h-8 bg-slate-200 mx-2" />
 
-        {/* Profile section */}
+        {/* Account (customer) */}
         <div className="relative" ref={menuRef}>
           <button
             onClick={() => setMenuOpen((o) => !o)}
             className="flex items-center gap-2.5 pl-1.5 pr-2 py-1.5 rounded-lg hover:bg-slate-100"
           >
             <div className="w-9 h-9 rounded-full bg-violet-600 text-white flex items-center justify-center font-semibold text-sm">
-              A
+              G
             </div>
             <div className="text-left leading-tight hidden sm:block">
-              <p className="text-sm font-semibold text-slate-800">Admin</p>
-              <p className="text-[11px] text-slate-400">Administrator</p>
+              <p className="text-sm font-semibold text-slate-800">Guest</p>
+              <p className="text-[11px] text-slate-400">Customer</p>
             </div>
             <ChevronDown
               size={16}
@@ -84,17 +83,17 @@ export default function Topbar() {
             <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl border border-slate-200 shadow-lg overflow-hidden z-40">
               <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-violet-600 text-white flex items-center justify-center font-semibold">
-                  A
+                  G
                 </div>
                 <div className="leading-tight min-w-0">
-                  <p className="text-sm font-semibold text-slate-800">Admin</p>
-                  <p className="text-xs text-slate-400 truncate">admin@stockflow.pos</p>
+                  <p className="text-sm font-semibold text-slate-800">Guest</p>
+                  <p className="text-xs text-slate-400 truncate">Shopping as guest</p>
                 </div>
               </div>
 
               <div className="px-4 py-2.5 flex items-center justify-between text-xs">
-                <span className="text-slate-500">Role</span>
-                <span className="font-medium text-slate-700">Administrator</span>
+                <span className="text-slate-500">Account</span>
+                <span className="font-medium text-slate-700">Customer</span>
               </div>
               <div className="px-4 py-2.5 flex items-center justify-between text-xs border-t border-slate-100">
                 <span className="text-slate-500">Date</span>
